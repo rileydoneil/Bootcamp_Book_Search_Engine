@@ -47,7 +47,39 @@ const resolvers = {
             } catch (err) {
                 throw new Error(err);
             }
-        }
+        },
+        // save book with type book
+        saveBook: async (parent, { input }, context) => {
+            if (context.user) {
+                try {
+                    return user = await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $addToSet: { savedBooks: input } },
+                        { new: true }
+                    );
+                } catch (err) {
+                    throw new Error(err);
+                }
+            } 
+            throw new AuthenticationError('You need to be logged in!');
+        },
+
+        //remove book by bookId
+        removeBook: async (parent, { bookId }, context) => {
+            if(context.user) {
+                try {
+                    return user = await User.findOneAndUpdate(
+                        { _id: context.user._id },
+                        { $pull: { savedBooks: { bookId: bookId } } },
+                        { new: true }
+                    );
+
+                } catch (err) {
+                    throw new Error(err);
+                }
+            }
+            throw new AuthenticationError('You need to be logged in!');
+        },
     }
 };
 
