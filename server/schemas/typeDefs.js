@@ -1,4 +1,5 @@
-//typedef of user
+const { gql } = require('apollo-server-express');
+
 const typeDefs = gql`
     type User {
         _id: ID
@@ -35,9 +36,13 @@ const typeDefs = gql`
         login(email: String!, password: String!): Auth
         addUser(username: String!, email: String!, password: String!): Auth
 
-        //save book with input type Book
         saveBook(input: BookInput): User
         removeBook(bookId: String): User
     }
+
+    type Query {
+        me: User
+    }
 `;
+
 module.exports = typeDefs;

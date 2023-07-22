@@ -24,16 +24,17 @@ const resolvers = {
         //login with email and password
         login: async (parent, { email, password }) => {
             try {
-                const user = User.findOne({ email });
+                const user = await User.findOne({ email });
                 if (!user) {
                     throw new AuthenticationError('Incorrect email');
                 }
+
                 const correctPw = await user.isCorrectPassword(password);
                 if (!correctPw) {
                     throw new AuthenticationError('Incorrect password');
                 }
                 const token = signToken(user);
-                return token;
+                return {token, user};
             } catch (err) {
                 throw new Error(err);
             }
@@ -43,7 +44,7 @@ const resolvers = {
             try {
                 const user = await User.create({ username, email, password });
                 const token = signToken(user);
-                return token;
+                return {token, user};
             } catch (err) {
                 throw new Error(err);
             }
@@ -52,7 +53,7 @@ const resolvers = {
         saveBook: async (parent, { input }, context) => {
             if (context.user) {
                 try {
-                    return user = await User.findOneAndUpdate(
+                    return await User.findOneAndUpdate(
                         { _id: context.user._id },
                         { $addToSet: { savedBooks: input } },
                         { new: true }
@@ -68,7 +69,7 @@ const resolvers = {
         removeBook: async (parent, { bookId }, context) => {
             if(context.user) {
                 try {
-                    return user = await User.findOneAndUpdate(
+                    return await User.findOneAndUpdate(
                         { _id: context.user._id },
                         { $pull: { savedBooks: { bookId: bookId } } },
                         { new: true }
