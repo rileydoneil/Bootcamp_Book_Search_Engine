@@ -24,6 +24,10 @@ To run the Book Search Engine locally, follow these steps:
 ## Usage
 
 To search for books, simply enter keywords, titles, or authors in the search bar. The application will interact with the Google Books API and display relevant book results based on your search query. You can click on individual books to view more detailed information, including the book's description, author, publisher, and cover image.
+![image](https://github.com/rileydoneil/Bootcamp_Book_Search_Engine/assets/37202991/4dbb06fd-3245-476e-a2db-65940f2ff5f2)
+![image](https://github.com/rileydoneil/Bootcamp_Book_Search_Engine/assets/37202991/0a337f5b-02ba-4a75-9df8-6c7c7bc8d8a5)
+
+
 
 ## Features
 
