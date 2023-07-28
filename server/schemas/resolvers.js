@@ -8,6 +8,7 @@ const resolvers = {
     Query: {
         //get a single user by username
         me: async (parent, args, context) => {
+            console.log(context.user);
             if (context.user) {
                 try {
                     return await User.findOne({ _id: context.user._id });
