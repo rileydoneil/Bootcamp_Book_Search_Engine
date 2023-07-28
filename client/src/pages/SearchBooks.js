@@ -70,6 +70,13 @@ const SearchBooks = () => {
     // find the book in `searchedBooks` state by the matching id
     const book = searchedBooks.find((book) => book.bookId === bookId);
 
+    // fill undefined object to ""
+    
+    const updatedBook = Object.fromEntries(
+      Object.entries(book).map(([key, value]) => [key, value ?? ""])
+    );
+    
+
     // get token
     const token = Auth.loggedIn() ? Auth.getToken() : null;
 
@@ -78,14 +85,14 @@ const SearchBooks = () => {
     }
 
     try {
-      console.log('book to save', book);
+      console.log('book to save', updatedBook);
       const response = await saveBook({
-        variables: { input: book }
+        variables: { input: updatedBook }
       });
       console.log(response)
 
-      if (!response.ok) {
-        throw new Error('something went wrong!', error);
+      if(error) {
+        console.log(error)
       }
 
       // if book successfully saves to user's account, save book id to state
